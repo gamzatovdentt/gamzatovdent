@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Стоматология</title>
+<meta name="description" content="Современная стоматология. Услуги, цены. Запись онлайн через WhatsApp и MAX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#0b2b3c;
+  --text:#1e3a4a;
+  --muted:#6b8a99;
+  --primary:#13b0b0;
+  --primary-dark:#0d8f8f;
+  --green:#17b355;
+  --green-dark:#0f9145;
+  --light:#f2fafb;
+  --radius:20px;
+  --shadow:0 18px 45px rgba(11,43,60,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color:var(--text);background:#fff;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit}
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- Кнопки ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:inherit;font-size:15px;font-weight:700;
+  padding:15px 28px;border-radius:999px;border:none;cursor:pointer;
+  transition:transform .2s ease, box-shadow .25s ease, background .25s ease;
+  white-space:nowrap;
+}
+.btn svg{width:20px;height:20px;fill:currentColor;flex:none}
+.btn-wa{
+  background:linear-gradient(135deg,#25D366,#17b355);color:#fff;
+  box-shadow:0 12px 26px rgba(37,211,102,.35);
+}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(37,211,102,.45)}
+.btn-max{
+  background:linear-gradient(135deg,#5B4DFF,#3B2FD1);color:#fff;
+  box-shadow:0 12px 26px rgba(91,77,255,.35);
+}
+.btn-max:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(91,77,255,.45)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;
+  box-shadow:0 12px 26px rgba(19,176,176,.32);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(19,176,176,.42)}
+.btn-ghost{background:#fff;color:var(--dark);border:1.5px solid rgba(11,43,60,.13)}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary-dark)}
+
+/* ---------- Хедер ---------- */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(11,43,60,.07);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;height:76px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;color:var(--dark);letter-spacing:-.02em}
+.logo-mark{
+  width:42px;height:42px;border-radius:13px;flex:none;
+  background:linear-gradient(135deg,#13b0b0,#5bd6c9);
+  display:grid;place-items:center;color:#fff;
+  box-shadow:0 8px 18px rgba(19,176,176,.35);
+}
+.logo-mark svg{width:24px;height:24px;fill:currentColor}
+.logo small{display:none}
+
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{font-size:15px;font-weight:600;color:var(--text);position:relative;padding:4px 0}
+.nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;border-radius:2px;background:var(--primary);transition:width .28s ease}
+.nav a:hover::after{width:100%}
+
+.header-right{display:flex;align-items:center;gap:18px}
+.header-phone{display:flex;flex-direction:column;line-height:1.25;text-align:right}
+.header-phone span{font-size:11px;color:var(--muted);font-weight:600}
+.header-phone a{font-size:16px;font-weight:800;color:var(--dark)}
+.header-phone a:hover{color:var(--primary-dark)}
+.header .btn{padding:12px 22px;font-size:14px}
+
+.burger{
+  display:none;width:44px;height:44px;border-radius:12px;border:1.5px solid rgba(11,43,60,.12);
+  background:#fff;cursor:pointer;position:relative;
+}
+.burger span{
+  position:absolute;left:12px;width:20px;height:2px;border-radius:2px;background:var(--dark);
+  transition:.28s ease;
+}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:21px}
+.burger span:nth-child(3){top:26px}
+.burger.active span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){top:21px;transform:rotate(-45deg)}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;padding:64px 0 90px;overflow:hidden;
+  background:radial-gradient(900px 520px at 88% -15%, #e3f7f7 0%, transparent 62%),
+             radial-gradient(700px 500px at 0% 110%, #eef9ff 0%, transparent 60%);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{
+  font-size:clamp(34px,4.6vw,58px);line-height:1.08;letter-spacing:-.03em;
+  font-weight:800;color:var(--dark);margin-bottom:10px;
+}
+
+/* Подзаголовок под H1 — отделён визуально от «Стоматологии» */
+.hero p.hero-sub{
+  font-size:clamp(19px,2.1vw,26px);
+  line-height:1.3;
+  font-weight:700;
+  color:var(--text);
+  letter-spacing:-.01em;
+  max-width:520px;
+  margin-bottom:16px;
+}
+.hero p.hero-sub em{
+  font-style:normal;
+  color:var(--primary-dark);
+  position:relative;
+  z-index:0;
+}
+.hero p.hero-sub em::after{
+  content:'';
+  position:absolute;
+  left:0;right:0;bottom:3px;height:9px;
+  background:rgba(19,176,176,.22);
+  border-radius:5px;
+  z-index:-1;
+}
+
+.hero p{font-size:17.5px;color:var(--muted);max-width:520px;margin-bottom:16px}
+
+/* Выделенное слово «консультации» */
+.hero p .hl{
+  color:var(--primary-dark);
+  font-weight:800;
+  background:linear-gradient(transparent 58%, rgba(19,176,176,.22) 58%);
+  padding:0 2px;
+}
+
+/* Зелёный баннер «Консультация бесплатна» */
+.hero-note{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:800;color:var(--green-dark);
+  background:#eefdf3;
+  border:2px solid var(--green);
+  padding:9px 20px;
+  border-radius:12px;
+  transform:rotate(-2.5deg);
+  transform-origin:center;
+  margin-bottom:34px;
+  box-shadow:0 8px 22px rgba(23,179,85,.18);
+  white-space:nowrap;
+  letter-spacing:.01em;
+}
+.hero-note svg{width:17px;height:17px;fill:currentColor;flex:none}
+
+/* Строка действий */
+.hero-actions{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;
+}
+
+/* Визуал */
+.hero-visual{position:relative;display:grid;place-items:center;min-height:420px}
+.hero-panel{
+  position:relative;width:100%;max-width:420px;aspect-ratio:1/1;
+  border-radius:36px;
+  background:linear-gradient(150deg,#13b0b0 0%,#0d8f8f 55%,#0b7d92 100%);
+  box-shadow:0 30px 70px rgba(13,143,143,.35);
+  display:grid;place-items:center;overflow:hidden;
+}
+.hero-panel::before{
+  content:'';position:absolute;width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.1);top:-60px;right:-60px;
+}
+.hero-panel::after{
+  content:'';position:absolute;width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.08);bottom:-40px;left:-40px;
+}
+.hero-panel .tooth{width:170px;height:170px;fill:#fff;opacity:.95;filter:drop-shadow(0 14px 26px rgba(0,0,0,.18))}
+
+/* ---------- Секции ---------- */
+section{padding:88px 0}
+.section-head{max-width:680px;margin:0 auto 52px;text-align:center}
+.section-head h2{
+  font-size:clamp(26px,3.2vw,40px);line-height:1.18;letter-spacing:-.025em;
+  font-weight:800;color:var(--dark);margin-bottom:14px;
+}
+.section-head p{color:var(--muted);font-size:16.5px}
+
+/* Услуги — баннеры */
+.services{background:var(--light);scroll-margin-top:90px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.card{
+  background:#fff;border-radius:var(--radius);
+  border:1px solid rgba(11,43,60,.06);
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(19,176,176,.3)}
+.card:not(.acc-card){padding:32px 28px}
+.card .ico{
+  width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#e6f8f8,#d3f1f1);color:var(--primary-dark);
+  margin-bottom:20px;
+}
+.card .ico svg{width:26px;height:26px;fill:currentColor}
+.card h3{font-size:19px;font-weight:800;color:var(--dark);margin-bottom:9px}
+.card p{font-size:14.8px;color:var(--muted);margin-bottom:16px}
+.card .price{font-size:15px;font-weight:800;color:var(--primary-dark)}
+
+/* ---------- Аккордеоны разделов ---------- */
+.acc-card{overflow:hidden;padding:0}
+.acc-head{
+  width:100%;background:transparent;border:none;cursor:pointer;
+  text-align:left;color:inherit;display:block;
+  padding:32px 28px;position:relative;
+}
+.acc-head .ico{margin-bottom:18px}
+.acc-head h3{margin-bottom:6px}
+.acc-hint{
+  font-size:13.5px;font-weight:600;color:var(--muted);margin:0;
+}
+.acc-chevron{
+  position:absolute;right:24px;top:32px;
+  font-size:18px;color:var(--muted);
+  transition:transform .35s ease;
+  line-height:1;
+}
+.acc-card.open .acc-chevron{transform:rotate(180deg)}
+.acc-panel{
+  max-height:0;overflow:hidden;
+  transition:max-height .45s cubic-bezier(.4,0,.2,1);
+}
+.acc-inner{
+  border-top:1px solid rgba(11,43,60,.07);
+  padding:16px 28px 28px;
+}
+.price-table{padding-top:10px}
+.pt-group{
+  font-size:13px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--primary-dark);
+  margin:16px 0 6px;
+}
+.pt-group:first-child{margin-top:0}
+.pt-row{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:14px;padding:8px 0;
+  border-bottom:1px dashed rgba(11,43,60,.12);
+  font-size:13.8px;line-height:1.45;
+}
+.pt-row:last-child{border-bottom:none}
+.pt-row span{flex:1 1 auto;color:var(--text)}
+.pt-row b{flex:none;white-space:nowrap;color:var(--primary-dark);font-weight:800}
+.pt-sub{padding-left:14px}
+.pt-sub span{color:var(--muted)}
+
+/* ---------- Блок записи ---------- */
+.booking-section{
+  padding:0 0 88px;
+  scroll-margin-top:90px;
+}
+.booking-box{
+  position:relative;overflow:hidden;border-radius:32px;padding:56px 44px;text-align:center;
+  background:linear-gradient(135deg,#0d8f8f 0%,#13b0b0 50%,#0b7d92 100%);
+  box-shadow:0 30px 70px rgba(13,143,143,.35);
+}
+.booking-box::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.09);top:-140px;right:-80px}
+.booking-box::after{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.07);bottom:-130px;left:-70px}
+.booking-box > *{position:relative;z-index:1}
+.booking-box h2{
+  font-size:clamp(26px,3.4vw,40px);font-weight:800;color:#fff;
+  letter-spacing:-.025em;margin-bottom:14px;
+}
+.booking-box p{
+  color:rgba(255,255,255,.85);font-size:17px;margin-bottom:32px;
+  max-width:620px;margin-left:auto;margin-right:auto;
+}
+.booking-actions{
+  display:flex;flex-wrap:wrap;gap:16px;justify-content:center;
+}
+.booking-actions .btn{
+  min-width:220px;font-size:16px;padding:18px 32px;
+}
+.booking-actions .btn-wa{background:#fff;color:#0d8f8f;box-shadow:0 16px 36px rgba(0,0,0,.2)}
+.booking-actions .btn-wa:hover{background:#f2fbfb}
+.booking-actions .btn-max{background:#fff;color:#3B2FD1;box-shadow:0 16px 36px rgba(0,0,0,.2)}
+.booking-actions .btn-max:hover{background:#f4f2ff}
+.booking-note{
+  margin-top:20px;font-size:13.5px;color:rgba(255,255,255,.75);
+}
+.booking-note a{color:#fff;font-weight:700}
+
+/* Анимация появления */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* ---------- Адаптив ---------- */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-visual{order:-1;min-height:340px}
+  .hero-panel{max-width:340px}
+  .hero p{margin-left:auto;margin-right:auto;text-align:center}
+  .hero p.hero-sub{margin-left:auto;margin-right:auto;text-align:center}
+  .hero{text-align:center}
+  .hero-actions{justify-content:center}
+  .hero-note{display:inline-flex;margin-left:auto;margin-right:auto}
+  .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  .nav{
+    position:absolute;top:76px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;padding:10px 20px 20px;
+    box-shadow:0 20px 40px rgba(11,43,60,.12);
+    border-bottom:1px solid rgba(11,43,60,.08);
+    display:none;
+  }
+  .nav.open{display:flex}
+  .nav a{padding:14px 0;border-bottom:1px solid rgba(11,43,60,.06);font-size:16px}
+  .nav a::after{display:none}
+  .burger{display:block}
+  .header-phone{display:none}
+  .header .btn{display:none}
+  section{padding:64px 0}
+  .booking-box{padding:48px 26px;border-radius:26px}
+}
+@media (max-width:640px){
+  .cards{grid-template-columns:1fr}
+  .hero-visual{min-height:300px}
+  .hero-panel{max-width:280px;border-radius:28px}
+  .hero-panel .tooth{width:130px;height:130px}
+  .booking-actions .btn{width:100%;min-width:0}
+  .acc-head{padding:26px 22px}
+  .acc-inner{padding:14px 22px 24px}
+  .acc-chevron{right:18px;top:28px}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:12px}
+  .hero-actions .btn{width:100%}
+  .hero-note{font-size:14px;padding:8px 16px;transform:rotate(-2deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 64 64"><path d="M32 8C26 4 18 4 14 8c-4 4-3 12-1 18 1.5 4.5 3 8 4 13 1 5 2 9 4.5 9 2.5 0 3-6 3.5-11 .5-5 2-9 7-9s6.5 4 7 9c.5 5 1 11 3.5 11 2.5 0 3.5-4 4.5-9 1-5 2.5-8.5 4-13 2-6 3-14-1-18-4-4-12-4-18 0z"/></svg>
+      </span>
+      <span>Стоматология</span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#prices">Услуги и цены</a>
+      <a href="#booking">Записаться</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="header-phone">
+        <span>Звоните ежедневно</span>
+        <a href="tel:+79882117177">+7 (988) 211-71-77</a>
+      </div>
+      <a class="btn btn-primary" href="#booking">Записаться</a>
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <h1>Стоматология</h1>
+      <p class="hero-sub">Приём — по <em>записи</em></p>
+      <p>Запись только после предварительной <span class="hl">консультации</span></p>
+
+      <span class="hero-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Консультация бесплатна
+      </span>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#booking">Записаться на приём</a>
+        <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-panel">
+        <svg class="tooth" viewBox="0 0 64 64"><path d="M32 8C26 4 18 4 14 8c-4 4-3 12-1 18 1.5 4.5 3 8 4 13 1 5 2 9 4.5 9 2.5 0 3-6 3.5-11 .5-5 2-9 7-9s6.5 4 7 9c.5 5 1 11 3.5 11 2.5 0 3.5-4 4.5-9 1-5 2.5-8.5 4-13 2-6 3-14-1-18-4-4-12-4-18 0z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= УСЛУГИ И ЦЕНЫ ================= -->
+<section class="services" id="prices">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Услуги и цены</h2>
+      <p>Основные услуги — сразу с ценами. Полные прайс-листы по разделам раскрываются по нажатию.</p>
+    </div>
+
+    <div class="cards">
+
+      <!-- 1. Реставрация -->
+      <div class="card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+        </div>
+        <h3>Реставрация зуба</h3>
+        <p>Восстановление формы и эстетики зуба современными композитными материалами.</p>
+        <div class="price">от 3 000 ₽</div>
+      </div>
+
+      <!-- 2. Имплантация -->
+      <div class="card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 4.5 5 8c0 1.6.4 2.8.8 4 .4 1.3.7 2.6 1 4 .3 1.5.6 3 1 4 .3.8 1 1.3 1.7 1.3.9 0 1.4-.7 1.7-1.6.3-1 .5-2.2.6-3.2.1-.8.4-1.5.9-1.5s.8.7.9 1.5c.1 1 .3 2.2.6 3.2.3.9.8 1.6 1.7 1.6.7 0 1.4-.5 1.7-1.3.4-1 .7-2.5 1-4 .3-1.4.6-2.7 1-4 .4-1.2.8-2.4.8-4 0-3.5-3-6-7-6z"/></svg>
+        </div>
+        <h3>Имплантация</h3>
+        <p>Восстановление утраченных зубов имплантами.</p>
+        <div class="price">от 18 000 ₽</div>
+      </div>
+
+      <!-- 3. Профгигиена -->
+      <div class="card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2 5.6.7-4.1 3.9 1.1 5.6L12 14.8 6.9 17.4l1.1-5.6L3.9 7.9l5.6-.7L12 2z"/></svg>
+        </div>
+        <h3>Профгигиена (чистка)</h3>
+        <p>Снятие налёта и камня, полировка. Профилактика заболеваний дёсен и кариеса.</p>
+        <div class="price">от 200 ₽/зуб</div>
+      </div>
+
+      <!-- 4. Терапия (аккордеон) -->
+      <div class="card acc-card reveal">
+        <button class="acc-head" type="button" aria-expanded="false">
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          </div>
+          <h3>Терапия</h3>
+          <p class="acc-hint">Нажмите, чтобы раскрыть полный прайс-лист</p>
+          <span class="acc-chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="acc-panel">
+          <div class="acc-inner">
+            <div class="price-table">
+              <div class="pt-row"><span>Консультация</span><b>бесплатно</b></div>
+              <div class="pt-row"><span>1. Анестезия</span><b>500 ₽</b></div>
+
+              <div class="pt-group">2. Лечение кариеса</div>
+              <div class="pt-row pt-sub"><span>а. 1 поверхность</span><b>2 500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>б. 2 поверхности</span><b>3 500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>в. 3 поверхности и более</span><b>4 500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>г. препарирование и формирование кариозной полости</span><b>500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>д. реставрация фронтальных зубов при полной утрате коронковой части</span><b>4 000–5 000 ₽</b></div>
+
+              <div class="pt-row"><span>3. Наложение коффердама</span><b>400 ₽</b></div>
+
+              <div class="pt-group">4. Эндодонтия (пульпит, периодонтит)</div>
+              <div class="pt-row pt-sub"><span>а. депульпация и формирование 1 канала</span><b>500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>б. обтурация 1 канала</span><b>500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>в. временное пломбирование каналов лечебной пастой</span><b>500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>г. медицинская обработка канала</span><b>100 ₽</b></div>
+              <div class="pt-row pt-sub"><span>д. распломбировка 1 канала</span><b>700–1 500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>е. наложение девитализирующей пасты</span><b>300 ₽</b></div>
+
+              <div class="pt-row"><span>5. Удаление ранее установленного анкерного штифта, культевой вкладки</span><b>1 000 ₽</b></div>
+              <div class="pt-row"><span>6. Установка анкерного и стекловолоконного штифта</span><b>500–1 000 ₽</b></div>
+
+              <div class="pt-group">7. Билд-ап «наращивание» под коронку</div>
+              <div class="pt-row pt-sub"><span>а. армирование штифтом после эндодонтического лечения</span><b>1 000 ₽</b></div>
+              <div class="pt-row pt-sub"><span>б. восстановление зуба с полостью менее 50%</span><b>2 000 ₽</b></div>
+              <div class="pt-row pt-sub"><span>в. восстановление зуба с полостью более 50%</span><b>2 500 ₽</b></div>
+              <div class="pt-row pt-sub"><span>г. восстановление зуба с полной утратой коронковой части</span><b>3 000 ₽</b></div>
+
+              <div class="pt-group">8. Профессиональная гигиена</div>
+              <div class="pt-row pt-sub"><span>а. чистка лёгкого налёта, 1 зуб</span><b>100 ₽</b></div>
+              <div class="pt-row pt-sub"><span>б. чистка налёта и наддесневых твёрдых зубных отложений (камней), 1 зуб</span><b>200 ₽</b></div>
+              <div class="pt-row pt-sub"><span>в. чистка поддесневых твёрдых зубных отложений (камней), кюретаж</span><b>300 ₽</b></div>
+
+              <div class="pt-row"><span>9. R-снимок</span><b>300–400 ₽</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Ортопедия + Прочее (аккордеон) -->
+      <div class="card acc-card reveal">
+        <button class="acc-head" type="button" aria-expanded="false">
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-3 3-3-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm3 5v2h10V9H7zm0 4v2h7v-2H7z"/></svg>
+          </div>
+          <h3>Ортопедия</h3>
+          <p class="acc-hint">Коронки, виниры, протезы и прочее — нажмите, чтобы раскрыть</p>
+          <span class="acc-chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="acc-panel">
+          <div class="acc-inner">
+            <div class="price-table">
+              <div class="pt-group">Ортопедия</div>
+              <div class="pt-row"><span>2.1 Цельнолитая металлическая коронка</span><b>2 500 ₽</b></div>
+              <div class="pt-row"><span>2.2 Металлокерамическая коронка</span><b>5 000 ₽</b></div>
+              <div class="pt-row"><span>2.3 Пресс-керамика (e-max), диоксид циркония</span><b>12 000–15 000 ₽</b></div>
+              <div class="pt-row"><span>2.4 Металлическая культевая вкладка</span><b>2 500 ₽</b></div>
+              <div class="pt-row"><span>2.5 Протезирование на имплантах</span><b>12 000–18 000 ₽</b></div>
+              <div class="pt-row"><span>2.6 Керамический винир</span><b>15 000–25 000 ₽</b></div>
+              <div class="pt-row"><span>2.7 Композитная коронка</span><b>6 000 ₽</b></div>
+              <div class="pt-row"><span>2.8 Мериленд-мост (адгезивный композитный мост)</span><b>5 000 ₽</b></div>
+              <div class="pt-row"><span>2.9 Композитная накладка</span><b>5 000 ₽</b></div>
+              <div class="pt-row"><span>2.10 Керамическая накладка</span><b>от 15 000 ₽</b></div>
+              <div class="pt-row"><span>2.11 Акриловый съёмный протез</span><b>15 000 ₽</b></div>
+              <div class="pt-row"><span>2.12 Замковый бюгельный протез</span><b>от 50 000 ₽</b></div>
+              <div class="pt-row"><span>2.13 Кламмерный бюгельный протез</span><b>от 30 000 ₽</b></div>
+              <div class="pt-row"><span>2.14 Протез на телескопических коронках и фрикционных штифтах</span><b>от 30 000 ₽</b></div>
+              <div class="pt-row"><span>2.15 Починка акрилового протеза</span><b>2 500–3 500 ₽</b></div>
+              <div class="pt-row"><span>2.16 Перебазировка съёмного протеза</span><b>от 2 500 ₽</b></div>
+
+              <div class="pt-group">Прочее</div>
+              <div class="pt-row"><span>2.17 Снятие штампованной коронки</span><b>400 ₽</b></div>
+              <div class="pt-row"><span>2.18 Снятие металлокерамической и цельнолитой коронки</span><b>1 000 ₽</b></div>
+              <div class="pt-row"><span>2.19 Цементная фиксация коронки</span><b>500 ₽</b></div>
+              <div class="pt-row"><span>2.20 Адгезивная фиксация коронки</span><b>800 ₽</b></div>
+              <div class="pt-row"><span>2.21 Препарирование зуба (обточка зуба)</span><b>500–1 000 ₽</b></div>
+              <div class="pt-row"><span>2.22 Снятие оттиска</span><b>500–1 000 ₽</b></div>
+              <div class="pt-row"><span>2.23 Экструзия корня</span><b>3 500 ₽</b></div>
+              <div class="pt-row"><span>2.24 Шинирование зубов, 1 челюсть</span><b>2 000 ₽</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Хирургия (аккордеон) -->
+      <div class="card acc-card reveal">
+        <button class="acc-head" type="button" aria-expanded="false">
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>
+          </div>
+          <h3>Хирургия</h3>
+          <p class="acc-hint">Удаление, лечение лунки, операции — нажмите, чтобы раскрыть</p>
+          <span class="acc-chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="acc-panel">
+          <div class="acc-inner">
+            <div class="price-table">
+              <div class="pt-row"><span>1.1 Удаление передних зубов</span><b>1 000 ₽</b></div>
+              <div class="pt-row"><span>1.2 Удаление жевательных зубов</span><b>1 500 ₽</b></div>
+              <div class="pt-row"><span>1.3 Удаление подвижных зубов</span><b>500 ₽</b></div>
+              <div class="pt-row"><span>1.4 Сложное удаление более 30 мин</span><b>3 000 ₽</b></div>
+              <div class="pt-row"><span>1.5 Удаление ретенированных и дистопированных зубов</span><b>от 5 000 ₽</b></div>
+              <div class="pt-row"><span>1.6 Заполнение лунки костным материалом</span><b>1 000–2 000 ₽</b></div>
+              <div class="pt-row"><span>1.7 Лечение альвеолита, 1 процедура</span><b>500 ₽</b></div>
+              <div class="pt-row"><span>1.8 Вскрытие периостита (флюса)</span><b>1 000 ₽</b></div>
+              <div class="pt-row"><span>1.9 Наложение шва после хирургических манипуляций</span><b>1 000 ₽</b></div>
+              <div class="pt-row"><span>1.10 Гингивэктомия (иссечение воспалённой десны), 1 с.</span><b>300 ₽</b></div>
+              <div class="pt-row"><span>1.11 Гемисекция зуба</span><b>3 500 ₽</b></div>
+              <div class="pt-row"><span>1.12 Резекция корня</span><b>20 000 ₽</b></div>
+              <div class="pt-row"><span>1.13 Удлинение клинической коронки зуба</span><b>от 3 000 ₽</b></div>
+              <div class="pt-row"><span>1.14 Пластика контура десны</span><b>от 2 000 ₽</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= БЛОК ЗАПИСИ ================= -->
+<section class="booking-section" id="booking">
+  <div class="container">
+    <div class="booking-box reveal">
+      <h2>Запишитесь на приём</h2>
+      <p>Выберите удобный мессенджер</p>
+
+      <div class="booking-actions">
+        <a class="btn btn-wa"
+           href="https://wa.me/79882117177?text=Здравствуйте!%20Хочу%20записаться%20на%20приём."
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4C7.6 4 4 7.6 4 12.05c0 1.42.37 2.8 1.08 4.02L4 20l4.05-1.06a8.03 8.03 0 0 0 4 1.06h.01c4.44 0 8.05-3.6 8.05-8.05 0-2.15-.84-4.17-2.36-5.63zM12.05 18.4h-.01a6.7 6.7 0 0 1-3.4-.93l-.24-.14-2.5.65.67-2.44-.16-.25a6.66 6.66 0 0 1-1.02-3.55c0-3.7 3-6.7 6.68-6.7 1.78 0 3.45.7 4.71 1.96a6.6 6.6 0 0 1 1.95 4.72c0 3.7-3 6.68-6.68 6.68zm3.66-5.01c-.2-.1-1.18-.58-1.36-.65-.18-.07-.32-.1-.45.1-.13.2-.5.65-.62.78-.11.13-.23.14-.42.05-.2-.1-.84-.31-1.6-.99-.6-.53-1-1.18-1.11-1.38-.12-.2-.01-.3.09-.4.09-.1.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.34-.45-.34l-.38-.01c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66 0 .98.71 1.93.81 2.06.1.13 1.4 2.14 3.4 3 .47.2.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.18-.48 1.35-.95.17-.47.17-.87.12-.95-.05-.09-.18-.14-.38-.24z"/></svg>
+          Записаться в WhatsApp
+        </a>
+
+        <a class="btn btn-max"
+           href="https://max.ru/u/f9LHodD0cOIBt8B9lbuRNZmuf6nPjdTtygh9T0vYg_gXth8uZnJynDeS6Zw"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 5.94 2 10.8c0 2.73 1.44 5.17 3.7 6.78L5 22l4.83-2.67c.69.1 1.41.15 2.17.15 5.52 0 10-3.94 10-8.8S17.52 2 12 2z"/>
+          </svg>
+          Записаться в MAX
+        </a>
+      </div>
+
+      <div class="booking-note">Или позвоните: <a href="tel:+79882117177">+7 (988) 211-71-77</a></div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ========== Мобильное меню ========== */
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  nav.classList.toggle('open');
+});
+
+/* ========== ПЛАВНАЯ ПРОКРУТКА К ЯКОРЯМ ========== */
+(function () {
+  const HEADER_OFFSET = 90;
+
+  function smoothScrollTo(target) {
+    const elementTop = target.getBoundingClientRect().top + window.pageYOffset;
+    const scrollTarget = elementTop - HEADER_OFFSET;
+
+    window.scrollTo({
+      top: scrollTarget < 0 ? 0 : scrollTarget,
+      behavior: 'smooth'
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+
+      if (nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        burger.classList.remove('active');
+      }
+
+      smoothScrollTo(target);
+
+      if (history.pushState) {
+        history.pushState(null, '', href);
+      }
+    });
+  });
+})();
+
+/* ========== АККОРДЕОНЫ РАЗДЕЛОВ ========== */
+(function () {
+  function openAcc(card) {
+    const panel = card.querySelector('.acc-panel');
+    const head = card.querySelector('.acc-head');
+    card.classList.add('open');
+    head.setAttribute('aria-expanded', 'true');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+
+    window.setTimeout(function () {
+      if (card.classList.contains('open')) {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    }, 500);
+  }
+
+  function closeAcc(card) {
+    const panel = card.querySelector('.acc-panel');
+    const head = card.querySelector('.acc-head');
+    card.classList.remove('open');
+    head.setAttribute('aria-expanded', 'false');
+    panel.style.maxHeight = '0px';
+  }
+
+  document.querySelectorAll('.acc-head').forEach(function (head) {
+    head.addEventListener('click', function () {
+      const card = head.closest('.acc-card');
+      if (card.classList.contains('open')) {
+        closeAcc(card);
+      } else {
+        openAcc(card);
+      }
+    });
+  });
+
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('.acc-card.open .acc-panel').forEach(function (panel) {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    });
+  });
+})();
+
+/* ========== Появление блоков при прокрутке ========== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
